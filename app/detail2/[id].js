@@ -1,11 +1,9 @@
 import Link from 'next/link';
 import { connectDB } from '@/util/database';
-import ListItem from './ListItem';
+import DetailItem from './DetailItem';
 
-export default async function List() {
-    // let db = (await connectDB).db('forum');
-    // let result = await db.collection('post').find().toArray();
-    // console.log('result', result);
+export default async function Detail() {
+    
     return (
         <div className="container">
             <div className="left">
@@ -15,7 +13,7 @@ export default async function List() {
                     <button className="cb3"></button>
                 </div>
                 <div className="info">
-                    <img src="/img/psa.png" alt="" />
+                    <img src="img/psa.png" alt="" />
                     <div className="info_r">
                         <h3>수환의 Note</h3>
                         <p>내 정보 보기</p>
@@ -36,14 +34,14 @@ export default async function List() {
             <div className="right">
                 <div className="r_head">
                     <div className="r_head_menu">
-                        <Link href="list">목록</Link>
-                        <Link href="write">글쓰기</Link>
+                        <Link href="/list">목록</Link>
+                        <Link href="/write">글쓰기</Link>
+                        <Link href="/">삭제</Link>
                     </div>
                     <div className="r_head_search"></div>
                 </div>
                 <div className="memo_body">
-                    {/* <ListItem result={result} /> */}
-                    <ListItem />
+                    <DetailItem />
                 </div>
             </div>
         </div>

@@ -1,18 +1,31 @@
 'use client';
 
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useParams, useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
 
 export default function Write() {
     const today = new Date();
     // 현재 날짜를 가져옵니다.
     const formattedDate = `${today.getFullYear()}년 ${today.getMonth() + 1}월 ${today.getDate()}일`;
     // 원하는 형식으로 날짜를 설정합니다.
-    const [title, setTitle] = useState('');
-    const [text, setText] = useState('');
+
+    const [current, setCurrent] = useState({});
+    useEffect(() => {
+        fetch(`/api/post/edit?id=${params.id}`, {
+            method: 'GET',
+        })
+            .then((res) => res.json())
+            .then((data) => setCurrent(data));
+    }, []);
+    const [title, setTitle] = useState(current.title);
+    const [text, setText] = useState(current.text);
 
     const router = useRouter();
+    const params = useParams();
+
+    console.log(title);
+    console.log(text);
 
     return (
         <div className="container">
@@ -81,9 +94,8 @@ export default function Write() {
                             }}
                             onChange={(e) => {
                                 setTitle(e.target.value);
-                                console.log(title);
                             }}
-                            defaultValue={title}
+                            defaultValue={current.title}
                         />
                         <textarea
                             name="text"
@@ -104,9 +116,8 @@ export default function Write() {
                             }}
                             onChange={(e) => {
                                 setText(e.target.value);
-                                console.log(text);
                             }}
-                            defaultValue={text}
+                            defaultValue={current.text}
                         ></textarea>
                         <button
                             style={{
@@ -118,25 +129,26 @@ export default function Write() {
                             }}
                             type="submit"
                             onClick={() => {
-                                if (title.trim() == '') {
+                                if (title == '') {
                                     alert('제목이 빈칸입니다.');
-                                } else if (text.trim() == '') {
+                                } else if (text == '') {
                                     alert('내용이 빈칸입니다');
                                 } else {
-                                    fetch('/api/post/write', {
-                                        method: 'POST',
+                                    fetch(`/api/post/edit?id=${params.id}`, {
+                                        method: 'PUT',
                                         body: JSON.stringify({
                                             title: title,
                                             text: text,
                                             time: formattedDate,
                                         }),
                                     }).then(() => {
-                                        router.push('list');
+                                        alert('수정이 완료되었습니다.');
+                                        router.push('/list');
                                     });
                                 }
                             }}
                         >
-                            작성
+                            수정
                         </button>
                     </div>
                 </div>

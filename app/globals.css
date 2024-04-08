@@ -127,7 +127,6 @@ table {
     border-collapse: collapse;
     border-spacing: 0;
 }
-출처: https://keembloo.tistory.com/5 [keembloo:티스토리]
 
 body {
     background-image: ('/img/bg.jpeg');
@@ -155,7 +154,7 @@ body {
 
 .container {
     width: 80%;
-    position: fixed;
+    position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -283,6 +282,8 @@ body {
 
 .container .right .memo_body .memo_list {
     display: block;
+    overflow: scroll;
+    height: 550px;
 }
 .container .right .memo_body .memo_list li {
     padding: 15px;
@@ -318,4 +319,24 @@ body {
 }
 .container .right .memo_body .memo_write textarea {
     display: block;
+}
+
+.memo_detail {
+}
+.memo_detail .memo_time {
+    display: block;
+    text-align: center;
+    color: #999;
+    padding: 10px 0;
+}
+.memo_detail .memo_title {
+    font-size: 18px;
+    font-weight: 500;
+    padding: 20px 0;
+    border-bottom: 1px solid #ddd;
+}
+.memo_detail .memo_text {
+    font-size: 16px;
+    font-weight: 500;
+    padding: 20px 0;
 }
